@@ -1,0 +1,22 @@
+{
+  "name": "catalago-01",
+  "version": "1.0.0",
+  "description": "Catalogo de Produtos Afiliados",
+  "main": "index.html",
+  "scripts": {
+    "start": "browser-sync start --server --files \"*.html, css/*.css, js/*.js\" --port 3000 --no-notify --open",
+    "dev": "npm start"
+  },
+  "keywords": [
+    "catalogo",
+    "afiliados",
+    "shopee",
+    "amazon",
+    "mercadolivre"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^3.0.3"
+  }
+}

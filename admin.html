@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WellShop — Gerenciar Produtos</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="admin-body">
+
+  <!-- HEADER -->
+  <header class="header admin-header">
+    <div class="header-inner container">
+      <a href="index.html" class="logo">
+        <img src="src/imagem/logo_wellshop.png" alt="WellShop" class="logo-img" style="filter: brightness(0) invert(1);" />
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link" style="color:rgba(255,255,255,.7)"><i class="fas fa-arrow-left"></i> Ver Catálogo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO ADMIN -->
+  <section class="admin-hero">
+    <div class="container">
+      <h1><i class="fas fa-boxes-stacked" style="color:#a78bfa"></i> Gerenciar Produtos</h1>
+      <p>Adicione, edite ou remova produtos do seu catálogo de afiliados.</p>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+    <div class="container">
+
+      <!-- STATS -->
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotal">—</div>
+          <div class="stat-label">Total de Produtos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statFeatured">—</div>
+          <div class="stat-label">Em Destaque</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statStores">—</div>
+          <div class="stat-label">Lojas Ativas</div>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="admin-grid">
+
+        <!-- FORMULÁRIO -->
+        <div class="card-panel">
+          <h2 class="panel-title">
+            <i class="fas fa-plus-circle"></i>
+            <span id="formTitle">Adicionar Produto</span>
+          </h2>
+
+          <form id="productForm" novalidate>
+            <input type="hidden" id="editId" />
+
+            <!-- Loja -->
+            <div class="form-group" style="margin-bottom:16px">
+              <label class="form-label">Loja <span>*</span></label>
+              <div class="store-select-group">
+                <input type="radio" name="store" id="storeShopee" value="shopee" class="store-radio" required />
+                <label for="storeShopee" class="store-label">
+                  <i class="fas fa-fire" style="color:#ee4d2d"></i>
+                  Shopee
+                </label>
+                <input type="radio" name="store" id="storeAmazon" value="amazon" class="store-radio" />
+                <label for="storeAmazon" class="store-label">
+                  <i class="fab fa-amazon" style="color:#ff9900"></i>
+                  Amazon
+                </label>
+                <input type="radio" name="store" id="storeML" value="mercadolivre" class="store-radio" />
+                <label for="storeML" class="store-label">
+                  <i class="fas fa-shopping-bag" style="color:#ffe600"></i>
+                  Mercado Livre
+                </label>
+              </div>
+            </div>
+
+            <!-- Campos 2 colunas -->
+            <div class="form-grid">
+              <!-- Nome -->
+              <div class="form-group form-full">
+                <label class="form-label" for="fieldName">Nome do Produto <span>*</span></label>
+                <input type="text" id="fieldName" class="form-control" placeholder="Ex: Fone Bluetooth JBL Tune 510" required />
+              </div>
+
+              <!-- Preço -->
+              <div class="form-group">
+                <label class="form-label" for="fieldPrice">Preço Atual <span>*</span></label>
+                <input type="number" id="fieldPrice" class="form-control" placeholder="0,00" step="0.01" min="0" required />
+              </div>
+
+              <!-- Preço original -->
+              <div class="form-group">
+                <label class="form-label" for="fieldOriginalPrice">Preço Original</label>
+                <input type="number" id="fieldOriginalPrice" class="form-control" placeholder="0,00 (opcional)" step="0.01" min="0" />
+              </div>
+
+              <!-- Categoria -->
+              <div class="form-group">
+                <label class="form-label" for="fieldCategory">Categoria</label>
+                <input type="text" id="fieldCategory" class="form-control" placeholder="Ex: Eletrônicos, Moda..." list="categorySuggestions" />
+                <datalist id="categorySuggestions">
+                  <option value="Eletrônicos" />
+                  <option value="Moda" />
+                  <option value="Cozinha" />
+                  <option value="Livros" />
+                  <option value="Beleza" />
+                  <option value="Esportes" />
+                  <option value="Casa" />
+                  <option value="Acessórios" />
+                  <option value="Brinquedos" />
+                  <option value="Games" />
+                </datalist>
+              </div>
+
+              <!-- Avaliação -->
+              <div class="form-group">
+                <label class="form-label" for="fieldRating">Avaliação (0–5)</label>
+                <input type="number" id="fieldRating" class="form-control" placeholder="Ex: 4.5" step="0.1" min="0" max="5" />
+              </div>
+
+              <!-- Qtd avaliações -->
+              <div class="form-group form-full">
+                <label class="form-label" for="fieldRatingCount">Nº de Avaliações</label>
+                <input type="number" id="fieldRatingCount" class="form-control" placeholder="Ex: 1250" min="0" />
+              </div>
+
+              <!-- Imagem -->
+              <div class="form-group form-full">
+                <label class="form-label" for="fieldImage">URL da Imagem <span>*</span></label>
+                <input type="url" id="fieldImage" class="form-control" placeholder="https://..." required />
+              </div>
+
+              <!-- Preview imagem -->
+              <div class="form-group form-full">
+                <div class="image-preview-box" id="imagePreview">
+                  <span><i class="fas fa-image" style="font-size:2rem;opacity:.3;display:block;text-align:center;margin-bottom:6px"></i>Prévia da imagem</span>
+                </div>
+              </div>
+
+              <!-- Link afiliado -->
+              <div class="form-group form-full">
+                <label class="form-label" for="fieldLink">Link de Afiliado <span>*</span></label>
+                <input type="url" id="fieldLink" class="form-control" placeholder="https://..." required />
+              </div>
+
+              <!-- Descrição -->
+              <div class="form-group form-full">
+                <label class="form-label" for="fieldDesc">Descrição Curta</label>
+                <textarea id="fieldDesc" class="form-control" placeholder="Descreva brevemente o produto, principais características..."></textarea>
+              </div>
+
+              <!-- Checkboxes -->
+              <div class="form-group form-full">
+                <div class="form-row">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="fieldFeatured" />
+                    ⭐ Produto em Destaque
+                  </label>
+                  <label class="checkbox-label" style="margin-left:16px">
+                    <input type="checkbox" id="fieldActive" checked />
+                    ✅ Produto Ativo
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+              <button type="submit" class="btn-primary" id="btnSubmit">
+                <i class="fas fa-plus"></i>
+                <span id="btnSubmitText">Adicionar Produto</span>
+              </button>
+              <button type="button" class="btn-secondary" id="btnCancel" style="display:none">
+                <i class="fas fa-times"></i> Cancelar
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- LISTA DE PRODUTOS -->
+        <div class="card-panel">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+            <h2 class="panel-title" style="margin-bottom:0">
+              <i class="fas fa-list"></i> Produtos Cadastrados
+            </h2>
+            <div class="search-wrap" style="max-width:220px">
+              <i class="fas fa-search search-icon"></i>
+              <input type="text" class="search-input" id="adminSearch" placeholder="Buscar..." />
+            </div>
+          </div>
+
+          <div class="admin-product-list" id="adminProductList">
+            <div class="loading-placeholder">
+              <div class="spinner"></div>
+              <p>Carregando...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Modal Confirmação Delete -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-box" style="max-width:420px;padding:32px">
+      <div style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:16px">🗑️</div>
+        <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">Excluir produto?</h3>
+        <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:24px">Esta ação não pode ser desfeita.</p>
+        <div style="display:flex;gap:10px;justify-content:center">
+          <button class="btn-secondary" id="confirmCancel"><i class="fas fa-times"></i> Cancelar</button>
+          <button class="btn-danger" id="confirmDelete" style="padding:11px 22px;font-size:.95rem"><i class="fas fa-trash"></i> Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

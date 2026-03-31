@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WellShop — Catálogo de Ofertas</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header-inner container">
+      <a href="index.html" class="logo">
+        <img src="src/imagem/logo_wellshop.png" alt="WellShop" class="logo-img" />
+      </a>
+
+      <nav class="header-nav">
+        <a href="#catalog" class="nav-link active">Catálogo</a>
+        <a href="#destaques" class="nav-link">Destaques</a>
+        <a href="admin.html" class="nav-link nav-admin"><i class="fas fa-cog"></i> Gerenciar</a>
+      </nav>
+
+      <button class="btn-menu-mobile" id="btnMenuMobile" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#catalog" class="nav-link">Catálogo</a>
+      <a href="#destaques" class="nav-link">Destaques</a>
+      <a href="admin.html" class="nav-link">⚙️ Gerenciar</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title">As melhores ofertas<br /><span class="hero-accent">em um só lugar</span></h1>
+      <p class="hero-sub">Produtos selecionados da Shopee, Amazon e Mercado Livre com os melhores preços.</p>
+      <div class="hero-stores">
+        <span class="store-pill shopee"><i class="fas fa-fire"></i> Shopee</span>
+        <span class="store-pill amazon"><i class="fab fa-amazon"></i> Amazon</span>
+        <span class="store-pill mercadolivre"><i class="fas fa-shopping-bag"></i> Mercado Livre</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILTROS ===== -->
+  <section class="filters-bar" id="catalog">
+    <div class="container filters-inner">
+      <!-- Busca -->
+      <div class="search-wrap">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar produto..." />
+      </div>
+
+      <!-- Filtro de loja -->
+      <div class="filter-group">
+        <button class="filter-btn active" data-store="all">Todas as lojas</button>
+        <button class="filter-btn shopee" data-store="shopee">
+          <i class="fas fa-fire"></i> Shopee
+        </button>
+        <button class="filter-btn amazon" data-store="amazon">
+          <i class="fab fa-amazon"></i> Amazon
+        </button>
+        <button class="filter-btn mercadolivre" data-store="mercadolivre">
+          <i class="fas fa-shopping-bag"></i> Mercado Livre
+        </button>
+      </div>
+
+      <!-- Filtro de categoria -->
+      <div class="filter-group">
+        <select id="categorySelect" class="category-select">
+          <option value="all">Todas as categorias</option>
+        </select>
+      </div>
+
+      <!-- Ordenação -->
+      <div class="filter-group">
+        <select id="sortSelect" class="category-select">
+          <option value="newest">Mais recentes</option>
+          <option value="price_asc">Menor preço</option>
+          <option value="price_desc">Maior preço</option>
+          <option value="rating">Melhor avaliação</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DESTAQUES ===== -->
+  <section class="section-destaques" id="destaques">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-star text-yellow"></i> Destaques</h2>
+        <p class="section-sub">Produtos selecionados especialmente para você</p>
+      </div>
+      <div class="products-grid featured-grid" id="featuredGrid">
+        <div class="loading-placeholder">
+          <div class="spinner"></div>
+          <p>Carregando destaques...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CATÁLOGO COMPLETO ===== -->
+  <section class="section-catalog">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title"><i class="fas fa-th-large"></i> Catálogo Completo</h2>
+        <p class="section-sub" id="productCount">Carregando produtos...</p>
+      </div>
+      <div class="products-grid" id="catalogGrid">
+        <div class="loading-placeholder">
+          <div class="spinner"></div>
+          <p>Carregando produtos...</p>
+        </div>
+      </div>
+
+      <!-- Paginação -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+
+  <!-- ===== MODAL PRODUTO ===== -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="logo">
+        <img src="src/imagem/logo_wellshop.png" alt="WellShop" class="logo-img" style="filter: brightness(0) invert(1);" />
+      </a>
+      <p class="footer-text">© 2025 WellShop · Todos os direitos reservados</p>
+      <p class="footer-disclaimer">Este site contém links de afiliado. Ao comprar, você nos apoia sem pagar nada a mais.</p>
+    </div>
+  </footer>
+
+  <!-- Supabase -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <!-- JS principal -->
+  <script src="js/main.js"></script>
+</body>
+</html>
